@@ -8,14 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var goToHome = false
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ZStack {
+            if goToHome{
+                Text("Hello")
+            }else{
+                OnBoardScreen()
+            }
         }
-        .padding()
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("sucess")), perform: { _ in
+            withAnimation {
+                goToHome.toggle()
+            }
+        })
     }
 }
 
